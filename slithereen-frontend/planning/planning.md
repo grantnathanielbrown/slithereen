@@ -31,8 +31,34 @@ category: string
 
 ### Gold
 
-### TODO
+## TODO
 
-- on next question submit, request to API
-- server receives data, socket.emit to all users, state is updated with QuestionObject
 - on submit guess, match with answer in QuestionObject. If right, emit "user guessed X. He was correct, so he scored Y points! or "user guessed X. He was wrong. Who else wants to guess?"
+### Known Bugs
+
+- Timer beginning before question is revealed
+
+## Quiz Structure / User Experience
+- you see page, no question loaded yet.
+- anyone can press "Get a brand new question"
+- When question pops up, timer appears and starts counting down from 20. Anyone can guess.
+"Brand New Question" button disappears / becomes unclickable.
+
+- If guess is correct, announcer says stuff and button reappears.
+- If guess is incorrect, announcer says stuff.
+- If timer runs out, announcer says stuff and button reappears. "Submit" field gets hidden.
+
+
+SOCKET.IO PATH
+
+FRONTEND socket.emit = > BACKEND socket.on => BACKEND io.emit => FRONTEND socket.on
+
+EXPRESS
+
+io.on connection = > set up event listener for connection. put all your functions in here
+socket.on => set up event listener for custom events. nested inside is 
+    io.emit, which sends a message to all connected sockets
+
+REACT
+socket.on => set up event listener for 
+
