@@ -10,6 +10,10 @@ io.on('connection', function (socket) {
   socket.on('chat message', function (msg) {
     io.emit('chat message', msg)
   })
+  socket.on('new question', function(question) {
+    io.emit('new question', question)
+    console.log("server has received new question")
+  })
   socket.on('disconnect', function () {
     console.log('user disconnected')
   })

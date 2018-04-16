@@ -36,3 +36,19 @@ category: string
 - on next question submit, request to API
 - server receives data, socket.emit to all users, state is updated with QuestionObject
 - on submit guess, match with answer in QuestionObject. If right, emit "user guessed X. He was correct, so he scored Y points! or "user guessed X. He was wrong. Who else wants to guess?"
+
+
+
+SOCKET.IO PATH
+
+FRONTEND socket.emit = > BACKEND socket.on => BACKEND socket.emit => FRONTEND socket.on
+
+EXPRESS
+
+io.on connection = > set up event listener for connection. put all your functions in here
+socket.on => set up event listener for custom events. nested inside is 
+    io.emit, which sends a message to all connected sockets
+
+REACT
+socket.on => set up event listener for 
+
