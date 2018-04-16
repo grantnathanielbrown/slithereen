@@ -11,6 +11,7 @@ class QuestionContainer extends Component {
             triviaQuestionObject: '',
             triviaQuestionGuess: '',
             timer: 10,
+            revealSubmit: false,
         }
         this.interval = null
         this.getNewQuestion = this.getNewQuestion.bind(this)
@@ -36,9 +37,11 @@ componentDidMount() {
 guessQuestion() {
     console.log(this.state.triviaQuestionObject)
     if (this.state.triviaQuestionGuess === this.state.triviaQuestionObject.answer) {
+        clearInterval(this.interval)
         const correctGuess = true
         socket.emit('correct', correctGuess)
     } else {
+        clearInterval(this.interval)
         const incorrectGuess = true
         socket.emit('incorrect', incorrectGuess)
     }
@@ -57,31 +60,43 @@ getNewQuestion(e) {
     console.log('server has received new question request')
     clearInterval(this.interval)
     this.setState({
-        timer: 10
+        revealSubmit: true,
+        timer: 10,
     })
     this.timerStart()
 }
 timerStart() {
+    setTimeout(() => {
+        clearInterval(this.interval)
+    }, 10999 )
     this.interval = setInterval(() => {
       this.setState({timer: this.state.timer - 1})
     }, 1000)
   }
 
     render() {
-        return (
+        const revealSubmit = this.state.revealSubmit
+        const submit = revealSubmit ?  (
             <div>
-                <h1 className="individual-question">{this.state.triviaQuestionObject.question}</h1>
                 <input onChange={this.handleGuess} type="text" />
                 <input onClick ={this.guessQuestion} type="submit" value="Submit Your Guess" />
-
-                <form onSubmit={this.getNewQuestion} action="">
-                    <input id="m" autoComplete="off" /><button>Get A Brand New Question</button>
-                </form>
-                <div className="question-timer">
-                    <h3>Time Remaining: {this.state.timer} seconds!</h3>
-                </div>
             </div>
-        );
+        ) : (
+            <h1>Please wait for the next question to guess.</h1>
+        )
+
+            return (
+                <div>
+                    <h1 className="individual-question">{this.state.triviaQuestionObject.question}</h1>
+                    {submit}
+                    <form onSubmit={this.getNewQuestion} action="">
+                        <input id="m" autoComplete="off" /><button>Get A Brand New Question</button>
+                    </form>
+                    <div className="question-timer">
+                        <h3>Time Remaining: {this.state.timer} seconds!</h3>
+                    </div>
+                </div>
+            )
     }
 }
 

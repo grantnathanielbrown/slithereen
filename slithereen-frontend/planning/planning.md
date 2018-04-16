@@ -31,10 +31,22 @@ category: string
 
 ### Gold
 
-### TODO
+## TODO
 
 - on submit guess, match with answer in QuestionObject. If right, emit "user guessed X. He was correct, so he scored Y points! or "user guessed X. He was wrong. Who else wants to guess?"
+### Known Bugs
 
+- Timer beginning before question is revealed
+
+## Quiz Structure / User Experience
+- you see page, no question loaded yet.
+- anyone can press "Get a brand new question"
+- When question pops up, timer appears and starts counting down from 20. Anyone can guess.
+"Brand New Question" button disappears / becomes unclickable.
+
+- If guess is correct, announcer says stuff and button reappears.
+- If guess is incorrect, announcer says stuff.
+- If timer runs out, announcer says stuff and button reappears. "Submit" field gets hidden.
 
 
 SOCKET.IO PATH
