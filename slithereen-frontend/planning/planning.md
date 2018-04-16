@@ -33,4 +33,6 @@ category: string
 
 ### TODO
 
-- 
+- on next question submit, request to API
+- server receives data, socket.emit to all users, state is updated with QuestionObject
+- on submit guess, match with answer in QuestionObject. If right, emit "user guessed X. He was correct, so he scored Y points! or "user guessed X. He was wrong. Who else wants to guess?"
