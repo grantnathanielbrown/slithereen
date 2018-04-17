@@ -38,7 +38,6 @@ componentDidMount() {
         clearInterval(this.interval)
         // clear timer
         this.timerStart()
-        clearTimeout(this.state.guessTimer)
 
         console.log(this.state.triviaQuestionObject)
     });
@@ -81,15 +80,6 @@ getNewQuestion(e) {
     socket.emit('new question', question)
     console.log('server has received new question request')
 }
-
-// timerClear() {
-
-// }
-// stopTimer(guessTimer)
-//     function stopTimer(x) {
-//         console.log(x)
-//         clearTimeout(x)
-//     }
 
 timerStart() {
     clearTimeout(this.guessTimer)
