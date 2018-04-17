@@ -16,20 +16,21 @@ category: string
 ## MVP
 
 
-- question displays at middle of the screen
+- question displays at middle of the screen.
+- users can actually play the game, answering questions and having them be right or wrong
 - question runs out over time
-- score
+- multiple users connect at once and play against each other
+- chat functionality
 
-### Bronze
-- users can add questions
-- users can log in and log out
-- 
+### Bronze 
+- score is unique to users
 
 ### Silver
-- multiple users connect at once and play against each other
-- 
+- users can log in and log out
 
 ### Gold
+- user profile with wins, stored score, whatever
+- I make my own API and users get full CRUD on it
 
 ## TODO
 
@@ -38,7 +39,7 @@ category: string
 
 - Timer beginning before question is revealed
 - Questions sometimes not loading
-- 
+
 ## Quiz Structure / User Experience
 - you see page, no question loaded yet.
 - anyone can press "Get a brand new question"

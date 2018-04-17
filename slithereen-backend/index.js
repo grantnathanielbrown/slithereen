@@ -7,6 +7,9 @@ var axios = require('axios')
 // })
 
 io.on('connection', function (socket) {
+  identification = socket.id
+  socket.emit('user id', identification)
+  console.log(identification)
   socket.on('chat message', function (msg) {
     io.emit('chat message', msg)
   })

@@ -12,6 +12,7 @@ class QuestionContainer extends Component {
             triviaQuestionGuess: '',
             timer: 10,
             revealSubmit: false,
+            userIdentification: undefined,
         }
         this.interval = null
         this.getNewQuestion = this.getNewQuestion.bind(this)
@@ -20,6 +21,12 @@ class QuestionContainer extends Component {
     }
 // 4
 componentDidMount() {
+    socket.on('user id', (identification) => {
+        this.setState({
+            userIdentification: identification
+        })
+    console.log(this.state.userIdentification)
+    })
     socket.on('new question', (question) => {
         
         this.setState({
