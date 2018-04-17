@@ -32,13 +32,10 @@ category: string
 - user profile with wins, stored score, whatever
 - I make my own API and users get full CRUD on it
 
-## TODO
 
-- on submit guess, match with answer in QuestionObject. If right, emit "user guessed X. He was correct, so he scored Y points! or "user guessed X. He was wrong. Who else wants to guess?"
 ### Known Bugs
 
-- Timer beginning before question is revealed
-- Questions sometimes not loading
+- Long load time on questions
 
 ## Quiz Structure / User Experience
 - you see page, no question loaded yet.
@@ -71,3 +68,22 @@ socket.on => set up event listener for custom events. nested inside is
 REACT
 socket.on => set up event listener for 
 
+## TODO
+
+- on submit guess, match with answer in QuestionObject. If right, emit "user guessed X. He was correct, so he scored Y points! or "user guessed X. He was wrong. Who else wants to guess?"
+
+- On backend, need an array of user objects; they have the ID and the score.
+- When user connects, create new user object
+- When user answers question correctly or incorrectly, update score on backend and push that to all users
+
+- Change guess to submission form
+
+
+### CSS Ideas
+
+- bar that runs down with countdown
+- Static placement of elements, try to make them not move around so much
+- 
+- reverse order on any announcer / chat that comes up
+- 
+Deploy
