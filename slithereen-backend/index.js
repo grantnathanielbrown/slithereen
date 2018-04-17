@@ -7,6 +7,9 @@ var axios = require('axios')
 // })
 
 io.on('connection', function (socket) {
+  identification = socket.id
+  socket.emit('user id', identification)
+  console.log(identification)
   socket.on('chat message', function (msg) {
     io.emit('chat message', msg)
   })
@@ -30,7 +33,6 @@ io.on('connection', function (socket) {
   socket.on('incorrect', function(incorrectGuess) {
     io.emit('incorrect', incorrectGuess)
   })
-
   // socket.on('disconnect', function () {
   //   console.log('user disconnected')
   // })
