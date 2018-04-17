@@ -1,28 +1,41 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
+  font-family: "Helvetica Neue";
+  background-color: #FAA916;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+/* HEADER */
+
+.header {
+  font-size: 50px;
+  
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+/* QUESTION CONTAINER */
+
+.question-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.question-container .buzzer {
+  background: linear-gradient(#da4f49, #b73a34);
   color: white;
+  font-size: 16px;
+  padding: 4px 12px;
+  border-radius: 5px;
 }
 
-.App-title {
-  font-size: 1.5em;
+.question-container .guess-field {
+  background-color: #E7DFE8;
+  padding: 4px;
 }
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.question-container .individual-question {
+  padding: 30px;
+  border: 5px solid;
+  border-radius: 25px;
+  width: 700px;
 }
