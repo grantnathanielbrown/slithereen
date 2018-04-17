@@ -21,12 +21,21 @@ class QuestionContainer extends Component {
 // 4
 componentDidMount() {
     socket.on('new question', (question) => {
+        
         this.setState({
-            triviaQuestionObject: question
+            triviaQuestionObject: question,
+            revealSubmit: true,
+            timer: 10,
         })
+        clearInterval(this.interval)
+        this.timerStart()
         console.log(this.state.triviaQuestionObject)
     });
     socket.on('correct', (correctGuess) => {
+        clearInterval(this.interval)
+        this.setState({
+            revealSubmit: false,
+        })
         console.log('He got a question right!')
     })
     socket.on('incorrect', (incorrectGuess) => {
@@ -37,11 +46,12 @@ componentDidMount() {
 guessQuestion() {
     console.log(this.state.triviaQuestionObject)
     if (this.state.triviaQuestionGuess === this.state.triviaQuestionObject.answer) {
-        clearInterval(this.interval)
         const correctGuess = true
         socket.emit('correct', correctGuess)
     } else {
-        clearInterval(this.interval)
+        this.setState({
+            revealSubmit: false,
+        }) 
         const incorrectGuess = true
         socket.emit('incorrect', incorrectGuess)
     }
@@ -55,20 +65,21 @@ handleGuess(e) {
 // 1
 getNewQuestion(e) {
     e.preventDefault()
-    const question = e.target.value
+    const question = true
+    console.log(question)
     socket.emit('new question', question)
     console.log('server has received new question request')
-    clearInterval(this.interval)
-    this.setState({
-        revealSubmit: true,
-        timer: 10,
-    })
-    this.timerStart()
 }
+
 timerStart() {
     setTimeout(() => {
+        this.setState({
+            revealSubmit: false,
+        })
         clearInterval(this.interval)
-    }, 10999 )
+    }, 10999
+     
+)
     this.interval = setInterval(() => {
       this.setState({timer: this.state.timer - 1})
     }, 1000)

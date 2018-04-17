@@ -30,7 +30,6 @@ io.on('connection', function (socket) {
   socket.on('incorrect', function(incorrectGuess) {
     io.emit('incorrect', incorrectGuess)
   })
-
   // socket.on('disconnect', function () {
   //   console.log('user disconnected')
   // })

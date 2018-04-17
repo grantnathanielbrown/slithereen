@@ -37,7 +37,8 @@ category: string
 ### Known Bugs
 
 - Timer beginning before question is revealed
-
+- Questions sometimes not loading
+- 
 ## Quiz Structure / User Experience
 - you see page, no question loaded yet.
 - anyone can press "Get a brand new question"
@@ -48,6 +49,13 @@ category: string
 - If guess is incorrect, announcer says stuff.
 - If timer runs out, announcer says stuff and button reappears. "Submit" field gets hidden.
 
+## Things that are shared by users
+
+- questionObject
+- timer
+- ability to submit
+- ability to view scores, and the scores themselves
+- 
 
 SOCKET.IO PATH
 
