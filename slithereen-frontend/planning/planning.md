@@ -87,3 +87,5 @@ socket.on => set up event listener for
 - reverse order on any announcer / chat that comes up
 - 
 Deploy
+
+color scheme: https://coolors.co/faa916-e7dfe8-6d676e-1b1b1e-96031a
