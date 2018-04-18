@@ -13,7 +13,6 @@ class QuestionContainer extends Component {
             timer: 20,
             revealSubmit: true,
             userIdentification: undefined,
-            currentScores: 0,
         }
         this.interval = null
         this.guessTimer = null
@@ -24,7 +23,15 @@ class QuestionContainer extends Component {
 // 4
 componentDidMount() {
     socket.on('user list', (data) => {
-        console.log(data)
+    function combine (item, index) {
+        var combinedNameAndScore = [item.id,item.score].join(": ")
+        return combinedNameAndScore
+        }  
+        var meme = data.map(combine)
+        this.setState({
+            userIdentification: meme
+        })
+        console.log(this.state.userIdentification)
     })
     // socket.on('user id', (data) => {
     //     this.setState({
@@ -104,8 +111,8 @@ timerStart() {
 
 joinGame(e) {
     e.preventDefault()
-    var userID = socket.id
-    socket.emit('user join game', userID)
+    var newUserObject = {id: socket.id, score: 0}
+    socket.emit('user join game', newUserObject)
 }
 
     render() {
@@ -130,7 +137,7 @@ joinGame(e) {
                         <h3>Time Remaining: {this.state.timer} seconds!</h3>
                     </div>
                     <div className="player-list">
-                        {this.state.userIdentification}: {this.state.currentScores}
+                        {this.state.userIdentification}
                     </div>
                     <form onSubmit={this.joinGame} action="">
                         <button>Join Game</button>
