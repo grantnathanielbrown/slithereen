@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import openSocket from 'socket.io-client';
 
-const socket = openSocket('https://slithereen-backend.herokuapp.com/')
+const socket = openSocket('http://localhost:3001/')
 
 class QuestionContainer extends Component {
     constructor(props) {
@@ -10,9 +10,10 @@ class QuestionContainer extends Component {
         this.state = {
             triviaQuestionObject: '',
             triviaQuestionGuess: '',
-            timer: 10,
+            timer: 20,
             revealSubmit: true,
             userIdentification: undefined,
+            currentScores: 0,
         }
         this.interval = null
         this.guessTimer = null
@@ -22,18 +23,22 @@ class QuestionContainer extends Component {
     }
 // 4
 componentDidMount() {
-    socket.on('user id', (identification) => {
-        this.setState({
-            userIdentification: identification
-        })
-    console.log(this.state.userIdentification)
+    socket.on('user list', (data) => {
+        console.log(data)
     })
+    // socket.on('user id', (data) => {
+    //     this.setState({
+    //         userIdentification: data
+    //     })
+    // console.log(this.state.userIdentification)
+
+    // })
     socket.on('new question', (question) => {
         
         this.setState({
             triviaQuestionObject: question,
             revealSubmit: true,
-            timer: 10,
+            timer: 20,
         })
         clearInterval(this.interval)
         // clear timer
@@ -41,12 +46,15 @@ componentDidMount() {
 
         console.log(this.state.triviaQuestionObject)
     });
-    socket.on('correct', (correctGuess) => {
+    socket.on('update scores', (data) => {
         clearInterval(this.interval)
         this.setState({
             revealSubmit: false,
+            currentScores: this.state.currentScores + data
         })
-        console.log('He got a question right!')
+        console.log('Scores have been updated senpai')
+        console.log(data)
+
     })
     socket.on('incorrect', (incorrectGuess) => {
         console.log('He got a question wrong!')
@@ -54,10 +62,9 @@ componentDidMount() {
 }
 
 guessQuestion() {
-    console.log(this.state.triviaQuestionObject)
-    if (this.state.triviaQuestionGuess === this.state.triviaQuestionObject.answer) {
+    if (this.state.triviaQuestionGuess.toUpperCase() === this.state.triviaQuestionObject.answer.toUpperCase()) {
         const correctGuess = true
-        socket.emit('correct', correctGuess)
+        socket.emit('correct', this.state.triviaQuestionObject.value)
     } else {
         this.setState({
             revealSubmit: false,
@@ -88,12 +95,18 @@ timerStart() {
             revealSubmit: false,
         })
         clearInterval(this.interval)
-    }, 10999  
+    }, 19999  
 )
     this.interval = setInterval(() => {
       this.setState({timer: this.state.timer - 1})
     }, 1000)
   }
+
+joinGame(e) {
+    e.preventDefault()
+    var userID = socket.id
+    socket.emit('user join game', userID)
+}
 
     render() {
         const revealSubmit = this.state.revealSubmit
@@ -116,6 +129,12 @@ timerStart() {
                     <div className="question-timer">
                         <h3>Time Remaining: {this.state.timer} seconds!</h3>
                     </div>
+                    <div className="player-list">
+                        {this.state.userIdentification}: {this.state.currentScores}
+                    </div>
+                    <form onSubmit={this.joinGame} action="">
+                        <button>Join Game</button>
+                    </form>
                 </div>
             )
     }
