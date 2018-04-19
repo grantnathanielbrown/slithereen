@@ -68,23 +68,29 @@ componentDidMount() {
 }
 
 guessQuestion() {
-
+    // a lot of logic in here makes the guessing process more lenient; for example, users do not have to worry about being case sensitive,
+    // and also do not have to worry about forgetting to write "the" or "a" in a guess, for example
     if (this.state.triviaQuestionObject.answer) {
-        var answerHelper = this.state.triviaQuestionObject.answer.toUpperCase().split(" ")
-        console.log(answerHelper)
         var guessHelper = this.state.triviaQuestionGuess.toUpperCase().split(" ")
         console.log(guessHelper)
+        var answerHelper = this.state.triviaQuestionObject.answer.toUpperCase().split(" ")
+        console.log(answerHelper)
+        var isGuessCorrect = false
         for (let guessSegment of guessHelper) {
             for (let answerSegment of answerHelper) {
-                if (guessSegment === answerSegment) {
-                    socket.emit('correct', this.state.triviaQuestionObject.value)
-                } else {
-                    this.setState({
-                        revealSubmit: false,
-                    }) 
-                    socket.emit('incorrect')
+                if (guessSegment === answerSegment && !(guessSegment.includes('THE', 'A', 'AN', 'AND', 'ON', 'OF', '&')) )  {
+                    isGuessCorrect = true
                 }
             }
+        }
+        if (isGuessCorrect === true) {
+            console.log('isGuessCorrect: ' + isGuessCorrect)
+            socket.emit('correct', this.state.triviaQuestionObject.value)
+        } else {
+            this.setState({
+                revealSubmit: false,
+            }) 
+            socket.emit('incorrect')
         }
     }
 }

@@ -41,7 +41,6 @@ category: string
 - you see page, no question loaded yet.
 - anyone can press "Get a brand new question"
 - When question pops up, timer appears and starts counting down from 20. Anyone can guess.
-"Brand New Question" button disappears / becomes unclickable.
 
 - If guess is correct, announcer says stuff and button reappears.
 - If guess is incorrect, announcer says stuff.
@@ -56,7 +55,6 @@ category: string
 - 
 
 ## TODO
-- Change user ID string to player 1, player 2, etc.
 
 - Make questions more lenient - consider the string query thingy (excepting the and &)
 
@@ -76,3 +74,10 @@ category: string
 - 
 
 color scheme: https://coolors.co/faa916-e7dfe8-6d676e-1b1b1e-96031a
+
+### potential trick words
+#### main culprits
+- the, a, an, and, on,
+
+#### others
+- day, 0-9, zero-nine
