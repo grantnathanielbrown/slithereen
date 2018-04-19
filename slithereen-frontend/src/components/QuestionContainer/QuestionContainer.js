@@ -68,16 +68,24 @@ componentDidMount() {
 }
 
 guessQuestion() {
-    if (this.state.triviaQuestionObject.answer) {
-        if (this.state.triviaQuestionGuess.toUpperCase() === this.state.triviaQuestionObject.answer.toUpperCase()) {
-            socket.emit('correct', this.state.triviaQuestionObject.value)
-        } else {
-            this.setState({
-                revealSubmit: false,
-            }) 
-            socket.emit('incorrect')
-        }
 
+    if (this.state.triviaQuestionObject.answer) {
+        var answerHelper = this.state.triviaQuestionObject.answer.toUpperCase().split(" ")
+        console.log(answerHelper)
+        var guessHelper = this.state.triviaQuestionGuess.toUpperCase().split(" ")
+        console.log(guessHelper)
+        for (let guessSegment of guessHelper) {
+            for (let answerSegment of answerHelper) {
+                if (guessSegment === answerSegment) {
+                    socket.emit('correct', this.state.triviaQuestionObject.value)
+                } else {
+                    this.setState({
+                        revealSubmit: false,
+                    }) 
+                    socket.emit('incorrect')
+                }
+            }
+        }
     }
 }
 handleGuess(e) {
