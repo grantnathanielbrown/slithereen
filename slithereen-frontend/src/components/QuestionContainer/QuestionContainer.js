@@ -8,28 +8,30 @@ class QuestionContainer extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            triviaQuestionObject: '',
-            triviaQuestionGuess: '',
+            triviaQuestionObject: 'a',
+            triviaQuestionGuess: 'a',
             timer: 20,
             revealSubmit: true,
-            userIdentification: undefined,
+            revealJoin: true,
+            userIdentification: [],
         }
         this.interval = null
         this.guessTimer = null
         this.getNewQuestion = this.getNewQuestion.bind(this)
         this.guessQuestion = this.guessQuestion.bind(this)
         this.handleGuess = this.handleGuess.bind(this)
+        this.joinGame = this.joinGame.bind(this)
     }
 // 4
 componentDidMount() {
     socket.on('user list', (data) => {
     function combine (item, index) {
-        var combinedNameAndScore = [item.id,item.score].join(": ")
+        var combinedNameAndScore = ["Player " + (index + 1),item.score].join(": ")
         return combinedNameAndScore
         }  
-        var meme = data.map(combine)
+        var scoreboard = data.map(combine)
         this.setState({
-            userIdentification: meme
+            userIdentification: scoreboard
         })
         console.log(this.state.userIdentification)
     })
@@ -53,14 +55,11 @@ componentDidMount() {
 
         console.log(this.state.triviaQuestionObject)
     });
-    socket.on('update scores', (data) => {
+    socket.on('end round', (data) => {
         clearInterval(this.interval)
         this.setState({
             revealSubmit: false,
-            currentScores: this.state.currentScores + data
         })
-        console.log('Scores have been updated senpai')
-        console.log(data)
 
     })
     socket.on('incorrect', (incorrectGuess) => {
@@ -69,15 +68,16 @@ componentDidMount() {
 }
 
 guessQuestion() {
-    if (this.state.triviaQuestionGuess.toUpperCase() === this.state.triviaQuestionObject.answer.toUpperCase()) {
-        const correctGuess = true
-        socket.emit('correct', this.state.triviaQuestionObject.value)
-    } else {
-        this.setState({
-            revealSubmit: false,
-        }) 
-        const incorrectGuess = true
-        socket.emit('incorrect', incorrectGuess)
+    if (this.state.triviaQuestionObject.answer) {
+        if (this.state.triviaQuestionGuess.toUpperCase() === this.state.triviaQuestionObject.answer.toUpperCase()) {
+            socket.emit('correct', this.state.triviaQuestionObject.value)
+        } else {
+            this.setState({
+                revealSubmit: false,
+            }) 
+            socket.emit('incorrect')
+        }
+
     }
 }
 handleGuess(e) {
@@ -102,7 +102,7 @@ timerStart() {
             revealSubmit: false,
         })
         clearInterval(this.interval)
-    }, 19999  
+    }, 20999 
 )
     this.interval = setInterval(() => {
       this.setState({timer: this.state.timer - 1})
@@ -111,12 +111,24 @@ timerStart() {
 
 joinGame(e) {
     e.preventDefault()
+    this.setState({
+        revealJoin: false,
+    })
     var newUserObject = {id: socket.id, score: 0}
     socket.emit('user join game', newUserObject)
 }
 
     render() {
+        let players = this.state.userIdentification.map((player, index) => {
+            return <ul key={index}>{player}</ul>
+        })
         const revealSubmit = this.state.revealSubmit
+        const revealJoin = this.state.revealJoin
+        const reveal = revealJoin ? (
+                <input className="join-button" onClick={this.joinGame} type="submit" value="Join Game" />  
+        ) : (
+            <h1>You have joined the game.</h1>
+        )
         const submit = revealSubmit ?  (
             <div>
                 <input className="guess-field" onChange={this.handleGuess} type="text" />
@@ -128,6 +140,7 @@ joinGame(e) {
 
             return (
                 <div className="question-container">
+                    {reveal}
                     <h1 className="individual-question">{this.state.triviaQuestionObject.question}</h1>
                     {submit}
                     <form onSubmit={this.getNewQuestion} action="">
@@ -137,11 +150,8 @@ joinGame(e) {
                         <h3>Time Remaining: {this.state.timer} seconds!</h3>
                     </div>
                     <div className="player-list">
-                        {this.state.userIdentification}
+                        {players}
                     </div>
-                    <form onSubmit={this.joinGame} action="">
-                        <button>Join Game</button>
-                    </form>
                 </div>
             )
     }

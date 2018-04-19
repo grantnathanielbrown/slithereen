@@ -55,28 +55,16 @@ category: string
 - ability to view scores, and the scores themselves
 - 
 
-SOCKET.IO PATH
-
-FRONTEND socket.emit = > BACKEND socket.on => BACKEND io.emit => FRONTEND socket.on
-
-EXPRESS
-
-io.on connection = > set up event listener for connection. put all your functions in here
-socket.on => set up event listener for custom events. nested inside is 
-    io.emit, which sends a message to all connected sockets
-
-REACT
-socket.on => set up event listener for 
-
 ## TODO
+- Change user ID string to player 1, player 2, etc.
+
+- Make questions more lenient - consider the string query thingy (excepting the and &)
 
 - on submit guess, match with answer in QuestionObject. If right, emit "user guessed X. He was correct, so he scored Y points! or "user guessed X. He was wrong. Who else wants to guess?"
 
-- On backend, need an array of user objects; they have the ID and the score.
-- When user connects, create new user object
-- When user answers question correctly or incorrectly, update score on backend and push that to all users
 
 - Change guess to submission form
+- add that bar that runs down with countdown
 
 
 ### CSS Ideas
@@ -86,6 +74,5 @@ socket.on => set up event listener for
 - 
 - reverse order on any announcer / chat that comes up
 - 
-Deploy
 
 color scheme: https://coolors.co/faa916-e7dfe8-6d676e-1b1b1e-96031a
