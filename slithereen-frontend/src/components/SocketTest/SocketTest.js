@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import openSocket from 'socket.io-client';
 
-const socket = openSocket('http://localhost:3001')
+const socket = openSocket('https://slithereen-backend.herokuapp.com/')
 class SocketTest extends Component {
   constructor() {
     super();
