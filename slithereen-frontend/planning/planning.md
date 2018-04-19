@@ -56,8 +56,6 @@ category: string
 
 ## TODO
 
-- Make questions more lenient - consider the string query thingy (excepting the and &)
-
 - on submit guess, match with answer in QuestionObject. If right, emit "user guessed X. He was correct, so he scored Y points! or "user guessed X. He was wrong. Who else wants to guess?"
 
 
@@ -77,7 +75,7 @@ color scheme: https://coolors.co/faa916-e7dfe8-6d676e-1b1b1e-96031a
 
 ### potential trick words
 #### main culprits
-- the, a, an, and, on,
+- the, a, an, and, 0-9, zero-nine,
 
 #### others
-- day, 0-9, zero-nine
+- day, on, of,

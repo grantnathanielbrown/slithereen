@@ -1,5 +1,4 @@
 .App {
-  /* text-align: center; */
   font-family: "Helvetica Neue";
   background-color: #FAA916;
   display: flex;
@@ -16,7 +15,10 @@
   align-items: center;
 }
 .header * {
-  margin: 20px;
+  margin: 10px;
+}
+.header h6 {
+  font-style: italic;
 }
 
 /* QUESTION CONTAINER */
@@ -43,16 +45,46 @@
   border-radius: 5px;
   border-color: #6D676E;
   outline: none;
+  margin: 10px 0px 10px 0px;
 }
 
 .question-container .guess-field {
   background-color: #E7DFE8;
   font-size: 16px;
-  padding: 5px 20px;
+  padding: 5px 5px;
 }
 .question-container .individual-question {
   padding: 30px;
   border: 5px solid;
   border-radius: 25px;
   width: 700px;
+  box-shadow: 10px 10px;
+  margin: 0px 0px 40px 0px;
+  height: 180px;
+}
+
+.question-container .new-question-button {
+  background: #6D676E;
+  color: #FAA916;
+  font-size: 16px;
+  padding: 4px 12px;
+  border-radius: 5px;
+  border-color: #6D676E;
+  outline: none;
+  margin: 30px 0px;
+}
+.question-container ul{
+  display: flex;
+  flex-direction: row;
+  padding: 0px;
+}
+
+.question-container ul li{
+  margin: 0px 50px;
+  font-size: 20px;
+  box-shadow: 5px 5px;
+  padding: 20px;
+  border: 2px solid;
+  border-radius: 3px;
+  list-style-type: none;
 }

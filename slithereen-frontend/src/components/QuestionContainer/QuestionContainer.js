@@ -134,7 +134,7 @@ joinGame(e) {
 
     render() {
         let players = this.state.userIdentification.map((player, index) => {
-            return <ul key={index}>{player}</ul>
+            return <li key={index}>{player}</li>
         })
         const revealSubmit = this.state.revealSubmit
         const revealJoin = this.state.revealJoin
@@ -144,28 +144,26 @@ joinGame(e) {
             <h1>You have joined the game.</h1>
         )
         const submit = revealSubmit ?  (
-            <div>
+            <form onSubmit={this.guessQuestion} action="">
                 <input className="guess-field" onChange={this.handleGuess} type="text" />
                 <input className="buzzer" onClick ={this.guessQuestion} type="submit" value="Submit Guess" />
-            </div>
+            </form>
         ) : (
-            <h1>Please wait for the next question to guess.</h1>
+            <h3>Please wait for the next question to guess.</h3>
         )
 
             return (
                 <div className="question-container">
                     {reveal}
                     <h1 className="individual-question">{this.state.triviaQuestionObject.question}</h1>
-                    {submit}
-                    <form onSubmit={this.getNewQuestion} action="">
-                        <button>New Question</button>
-                    </form>
                     <div className="question-timer">
                         <h3>Time Remaining: {this.state.timer} seconds!</h3>
                     </div>
-                    <div className="player-list">
+                    {submit}
+                    <input className="new-question-button" onClick={this.getNewQuestion} type="submit" value="New Question" />
+                    <ul>
                         {players}
-                    </div>
+                    </ul>
                 </div>
             )
     }
