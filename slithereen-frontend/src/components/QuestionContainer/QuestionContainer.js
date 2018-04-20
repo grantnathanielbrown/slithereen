@@ -67,9 +67,10 @@ componentDidMount() {
     })
 }
 
-guessQuestion() {
+guessQuestion(e) {
     // a lot of logic in here makes the guessing process more lenient; for example, users do not have to worry about being case sensitive,
     // and also do not have to worry about forgetting to write "the" or "a" in a guess, for example
+    e.preventDefault()
     if (this.state.triviaQuestionObject.answer) {
         var guessHelper = this.state.triviaQuestionGuess.toUpperCase().split(" ")
         console.log(guessHelper)
@@ -141,7 +142,7 @@ joinGame(e) {
         const reveal = revealJoin ? (
                 <input className="join-button" onClick={this.joinGame} type="submit" value="Join Game" />  
         ) : (
-            <h1>You have joined the game.</h1>
+            <h1>You have joined the game. TEST</h1>
         )
         const submit = revealSubmit ?  (
             <form onSubmit={this.guessQuestion} action="">
