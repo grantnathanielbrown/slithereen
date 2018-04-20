@@ -37,15 +37,6 @@ category: string
 
 - Long load time on questions
 
-## Quiz Structure / User Experience
-- you see page, no question loaded yet.
-- anyone can press "Get a brand new question"
-- When question pops up, timer appears and starts counting down from 20. Anyone can guess.
-
-- If guess is correct, announcer says stuff and button reappears.
-- If guess is incorrect, announcer says stuff.
-- If timer runs out, announcer says stuff and button reappears. "Submit" field gets hidden.
-
 ## Things that are shared by users
 
 - questionObject

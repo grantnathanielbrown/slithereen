@@ -35,13 +35,6 @@ componentDidMount() {
         })
         console.log(this.state.userIdentification)
     })
-    // socket.on('user id', (data) => {
-    //     this.setState({
-    //         userIdentification: data
-    //     })
-    // console.log(this.state.userIdentification)
-
-    // })
     socket.on('new question', (question) => {
         
         this.setState({
@@ -101,7 +94,6 @@ handleGuess(e) {
         triviaQuestionGuess: e.target.value
     })
 }
-// 1
 getNewQuestion(e) {
     e.preventDefault()
     const question = true
@@ -142,7 +134,7 @@ joinGame(e) {
         const reveal = revealJoin ? (
                 <input className="join-button" onClick={this.joinGame} type="submit" value="Join Game" />  
         ) : (
-            <h1>You have joined the game. TEST</h1>
+            <h1>You have joined the game.</h1>
         )
         const submit = revealSubmit ?  (
             <form onSubmit={this.guessQuestion} action="">
