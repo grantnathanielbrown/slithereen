@@ -6,7 +6,6 @@ import axios from 'axios';
 // components
 import Header from './components/Header/Header';
 import QuestionContainer from './components/QuestionContainer/QuestionContainer';
-import SocketTest from './components/SocketTest/SocketTest';
 
 class App extends Component {
   render() {
