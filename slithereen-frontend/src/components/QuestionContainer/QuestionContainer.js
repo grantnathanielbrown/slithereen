@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import openSocket from 'socket.io-client';
-const socket = openSocket('http://localhost:3001/')
+const socket = openSocket('https://slithereen-backend.herokuapp.com/')
+// http://localhost:3001/
+
 
 class QuestionContainer extends Component {
     constructor(props) {
