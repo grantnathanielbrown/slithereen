@@ -2,8 +2,8 @@
 
 // import openSocket from 'socket.io-client';
 
-// const socket = openSocket('https://slithereen-backend.herokuapp.com/')
-// class SocketTest extends Component {
+// const socket = openSocket('http://localhost:3001/')
+// class ChatField extends Component {
 //   constructor() {
 //     super();
 //     this.state = {
@@ -25,7 +25,7 @@
 //     e.target.reset();
 //   }
 //   render() {
-//     let messages = this.state.messages.map((msg, i) => {
+//     let messages = this.state.messages.reverse().map((msg, i) => {
 //       return <li key={i}>{msg}</li>
 //     })
 //     return (
@@ -39,4 +39,4 @@
 //   }
 // }
 
-// export default SocketTest;
+// export default ChatField;

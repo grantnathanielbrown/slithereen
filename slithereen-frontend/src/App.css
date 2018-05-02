@@ -53,6 +53,28 @@
   font-size: 16px;
   padding: 5px 5px;
 }
+/* MESSAGES */
+
+.chat-container {
+  width: 700px;
+  height: 250px;
+  background-color: #E7DFE8;
+  border: 2px solid;
+  position: relative;
+}
+.chat-container input {
+  width: 650px;
+  position: absolute;
+  bottom: 0;
+}
+.chat-container button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+#messages li {
+  list-style-type: none;
+}
 .question-container .individual-question {
   padding: 30px;
   border: 5px solid;
@@ -73,13 +95,13 @@
   outline: none;
   margin: 30px 0px;
 }
-.question-container ul{
+.question-container .player-list {
   display: flex;
   flex-direction: row;
   padding: 0px;
 }
 
-.question-container ul li{
+.question-container .player-list li{
   margin: 0px 50px;
   font-size: 20px;
   box-shadow: 5px 5px;
@@ -88,3 +110,4 @@
   border-radius: 3px;
   list-style-type: none;
 }
+

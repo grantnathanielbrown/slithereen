@@ -47,10 +47,10 @@ category: string
 
 ## TODO
 
+
+* set value of field to "input your name here.."
+- mobile friendly?
 - on submit guess, match with answer in QuestionObject. If right, emit "user guessed X. He was correct, so he scored Y points! or "user guessed X. He was wrong. Who else wants to guess?"
-
-
-- Change guess to submission form
 - add that bar that runs down with countdown
 
 
