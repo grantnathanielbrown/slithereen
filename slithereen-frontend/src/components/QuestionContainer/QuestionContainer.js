@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import openSocket from 'socket.io-client';
-const socket = openSocket('https://slithereen-backend.herokuapp.com/')
+const socket = openSocket('http://localhost:3001/')
 // http://localhost:3001/
+// https://slithereen-backend.herokuapp.com/
 
 
 class QuestionContainer extends Component {
@@ -197,15 +198,15 @@ submitMessage(e) {
                 <div className="question-container">
                     {reveal}
                     <h1 className="individual-question">{this.state.triviaQuestionObject.question}</h1>
-                    <div className="chat-container">
-                        <ul id="messages">{messages}</ul>
-                            {chat}
-                    </div>
                     <div className="question-timer">
                         <h3>Time Remaining: {this.state.timer} seconds!</h3>
                     </div>
                     {submit}
                     <input className="new-question-button" onClick={this.getNewQuestion} type="submit" value="New Question" />
+                    <div className="chat-container">
+                        <ul id="messages">{messages}</ul>
+                            {chat}
+                    </div>
                     <ul className="player-list">
                         {players}
                     </ul>
