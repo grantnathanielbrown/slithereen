@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import openSocket from 'socket.io-client';
-const socket = openSocket('http://localhost:3001/')
+const socket = openSocket('https://slithereen-backend.herokuapp.com/')
 // http://localhost:3001/
 // https://slithereen-backend.herokuapp.com/
 
@@ -91,6 +91,7 @@ guessQuestion(e) {
         var isGuessCorrect = false
         for (let guessSegment of guessHelper) {
             for (let answerSegment of answerHelper) {
+                // Right-hand side only resolving to true on 'THE', all other items in the array resolve to false. Fix that
                 if (guessSegment === answerSegment && !(guessSegment.includes('THE', 'A', 'AN', 'AND', 'ON', 'OF', '&')) )  {
                     isGuessCorrect = true
                 }
