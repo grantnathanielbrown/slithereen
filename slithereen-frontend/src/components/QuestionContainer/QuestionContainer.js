@@ -75,6 +75,9 @@ componentDidMount() {
         this.setState({
             revealSubmit: false,
         })
+        let pausedBar = document.getElementsByClassName('progress')[0];
+        console.log(pausedBar);
+        pausedBar.classList.add('paused');
 
     })
 }
@@ -133,6 +136,7 @@ getNewQuestion(e) {
 
 timerStart() {
     clearTimeout(this.guessTimer)
+    this.startLoadingBar()
     this.guessTimer = setTimeout(() => {
         this.setState({
             revealSubmit: false,
@@ -141,8 +145,23 @@ timerStart() {
     }, 20999 
 )
     this.interval = setInterval(() => {
-      this.setState({timer: this.state.timer - 1})
+      this.setState({timer: (this.state.timer - 1)})
     }, 1000)
+  }
+
+startLoadingBar() {
+    // deletes the bar if it already exists, then creates a 'progress bar' inside of bar div, add the animation to it
+    
+    let parent = document.getElementById('bar');
+    let old = document.getElementsByClassName('progress')[0]
+    parent.removeChild(old);
+    console.log('its gone bro')
+    
+    console.log('animation started');
+    let progress = document.createElement('div');
+    progress.classList.add('progress');
+    parent.appendChild(progress);
+    progress.classList.add('decrease');
   }
 
 joinGame(e) {
@@ -199,10 +218,15 @@ submitMessage(e) {
                 <div className="question-container">
                     {reveal}
                     <h1 className="individual-question">{this.state.triviaQuestionObject.question}</h1>
-                    <div className="question-timer">
-                        <h3>Time Remaining: {this.state.timer} seconds!</h3>
+                    <div className="timer-and-guess">
+                        {submit}
+                        <div className="question-timer">
+                            <h4>Time remaining: {this.state.timer} seconds!</h4>
+                            <div id="bar">
+                                <div className="progress"></div>
+                            </div>
+                        </div>
                     </div>
-                    {submit}
                     <input className="new-question-button" onClick={this.getNewQuestion} type="submit" value="New Question" />
                     <div className="chat-container">
                         <ul id="messages">{messages}</ul>
