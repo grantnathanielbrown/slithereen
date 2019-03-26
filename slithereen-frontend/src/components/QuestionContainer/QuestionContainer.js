@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import openSocket from 'socket.io-client';
+// var socket = openSocket('https://slithereen-backend.herokuapp.com/', {transports: ['websocket', 'polling', 'flashsocket']});
 const socket = openSocket('https://slithereen-backend.herokuapp.com/')
 // http://localhost:3001/
 // https://slithereen-backend.herokuapp.com/
@@ -155,7 +156,7 @@ startLoadingBar() {
     let parent = document.getElementById('bar');
     let old = document.getElementsByClassName('progress')[0]
     parent.removeChild(old);
-    console.log('its gone bro')
+    console.log('march')
     
     console.log('animation started');
     let progress = document.createElement('div');
@@ -216,12 +217,13 @@ submitMessage(e) {
 
             return (
                 <div className="question-container">
+                <h1>TEST</h1>
                     {reveal}
                     <h1 className="individual-question">{this.state.triviaQuestionObject.question}</h1>
                     <div className="timer-and-guess">
                         {submit}
                         <div className="question-timer">
-                            <h4>Time remaining: {this.state.timer} seconds!</h4>
+                            <h4>TEST {this.state.timer} seconds!</h4>
                             <div id="bar">
                                 <div className="progress"></div>
                             </div>
