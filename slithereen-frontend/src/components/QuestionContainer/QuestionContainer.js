@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import openSocket from 'socket.io-client';
-// var socket = openSocket('https://slithereen-backend.herokuapp.com/', {transports: ['websocket', 'polling', 'flashsocket']});
-const socket = openSocket('https://slithereen-backend.herokuapp.com/')
+var socket = openSocket('https://slithereen-backend.herokuapp.com/', {transports: ['websocket', 'polling', 'flashsocket']});
+// const socket = openSocket('https://slithereen-backend.herokuapp.com/')
 // http://localhost:3001/
 // https://slithereen-backend.herokuapp.com/
 
@@ -217,13 +217,12 @@ submitMessage(e) {
 
             return (
                 <div className="question-container">
-                <h1>TEST</h1>
                     {reveal}
                     <h1 className="individual-question">{this.state.triviaQuestionObject.question}</h1>
                     <div className="timer-and-guess">
                         {submit}
                         <div className="question-timer">
-                            <h4>TEST {this.state.timer} seconds!</h4>
+                            <h4>You have{this.state.timer} seconds!</h4>
                             <div id="bar">
                                 <div className="progress"></div>
                             </div>
