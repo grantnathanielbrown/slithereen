@@ -222,7 +222,7 @@ submitMessage(e) {
                     <div className="timer-and-guess">
                         {submit}
                         <div className="question-timer">
-                            <h4>You have {this.state.timer} seconds!</h4>
+                            <h4>{this.state.timer} seconds remaining!</h4>
                             <div id="bar">
                                 <div className="progress"></div>
                             </div>
