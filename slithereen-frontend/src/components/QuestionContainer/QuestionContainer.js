@@ -1,25 +1,27 @@
+// imports
 import React, { Component } from 'react';
-import axios from 'axios';
 import openSocket from 'socket.io-client';
-var socket = openSocket('https://slithereen-backend.herokuapp.com/', {transports: ['websocket', 'polling', 'flashsocket']});
-// const socket = openSocket('https://slithereen-backend.herokuapp.com/')
-// http://localhost:3001/
-// https://slithereen-backend.herokuapp.com/
 
+let url;
+process.env.NODE_ENV === "development" ? url = "http://localhost:3001/" : url = "https://slithering-backend.herokuapp.com/";
+var socket = openSocket(url, {transports: ['websocket', 'polling', 'flashsocket']});
 
 class QuestionContainer extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             triviaQuestionObject: 'a',
             triviaQuestionGuess: 'a',
             timer: 20,
+
             revealSubmit: true,
             revealJoin: true,
             revealChat: false,
+
             userIdentification: [],
             messages: [],
-            // nickname
+
+            nickname: '',           
         }
         this.interval = null
         this.guessTimer = null
@@ -33,23 +35,27 @@ class QuestionContainer extends Component {
 // 4
 
 componentDidMount() {
+    // pair users and their scores. .join() returns a string from an array 
     socket.on('user list', (data) => {
         function combine (item, index) {
             var combinedNameAndScore = [item.nickname,item.score].join(": ")
             return combinedNameAndScore
         }  
+        // read scores and set the state
         var scoreboard = data.map(combine)
         this.setState({
             userIdentification: scoreboard
         })
         console.log(this.state.userIdentification)
     })
+    // same deal as the function above, except with messages
     socket.on('message list', (data) => {
         function combine (item, index) {
             if (item.nickname) {
                 var combinedNameAndMessage = [item.nickname,item.message].join(": ")
                 return combinedNameAndMessage
             } else {
+                // for people with no name
                 return item
             }
         }
@@ -145,6 +151,7 @@ timerStart() {
         clearInterval(this.interval)
     }, 20999 
 )
+// reduces the timer by 1 every 1 second
     this.interval = setInterval(() => {
       this.setState({timer: (this.state.timer - 1)})
     }, 1000)
@@ -167,6 +174,7 @@ startLoadingBar() {
 
 joinGame(e) {
     e.preventDefault()
+    
     this.setState({
         revealJoin: false,
         revealChat: true,
@@ -188,18 +196,21 @@ submitMessage(e) {
         let messages = this.state.messages.map((msg, i) => {
             return <li key={i}>{msg}</li>
           })
-        const revealSubmit = this.state.revealSubmit
-        const revealJoin = this.state.revealJoin
-        const revealChat = this.state.revealChat
-        const reveal = revealJoin ? (
+        let revealJoinButton;
+        if (this.state.nickname !== '') {
+            revealJoinButton = <input className="join-button" type="submit" value="Join Game" />
+        } else {
+            revealJoinButton = <input className="join-button" type="submit" value="Join Game" disabled />
+        }
+        const reveal = this.state.revealJoin ? (
             <form onSubmit={this.joinGame} action="">
                 <input className="name-field" onChange={this.handleNameInput} type="text" />
-                <input className="join-button" type="submit" value="Join Game" />
+                {revealJoinButton}
             </form> 
         ) : (
             <h1>You have joined the game as {this.state.nickname}.</h1>
         )
-        const submit = revealSubmit ?  (
+        const submit = this.state.revealSubmit ?  (
             <form onSubmit={this.guessQuestion} action="">
                 <input className="guess-field" onChange={this.handleGuess} type="text" />
                 <input className="buzzer" onClick ={this.guessQuestion} type="submit" value="Submit Guess" />
@@ -207,7 +218,7 @@ submitMessage(e) {
         ) : (
             <h3>Please wait for the next question to guess.</h3>
         )
-        const chat = revealChat ? (
+        const chat = this.state.revealChat ? (
             <form onSubmit={this.submitMessage} action="">
                 <input id="m" autoComplete="off" /><button>Send</button>
             </form>
