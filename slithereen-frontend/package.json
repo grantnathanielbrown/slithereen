@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "http://grantnathanielbrown.github.io/slithereen",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "react-scripts": "1.1.4",
